@@ -1,0 +1,6 @@
+User Story: Usuario Logeado
+Como cliente registrado en el restaurante, quiero poder acceder al menú de turnos para reservar una mesa y tener la opción de cerrar sesión en cualquier momento. Además, deseo tener acceso a las secciones de Inicio, Contáctanos y Sobre Nosotros.
+
+User Story: Usuario No Registrado
+Como visitante del sitio web del restaurante, quiero tener la opción de registrarme para obtener una cuenta y así poder reservar una mesa. Deseo tener acceso a las secciones de Inicio, Contáctanos y Sobre Nosotros.
+
