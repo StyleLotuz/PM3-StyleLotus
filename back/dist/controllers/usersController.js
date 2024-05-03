@@ -37,25 +37,55 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUser = exports.registerUser = exports.getUserById = exports.getUsers = void 0;
+var usersServices_1 = require("../services/usersServices");
 var getUsers = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var users;
     return __generator(this, function (_a) {
-        res.status(201).json({ message: "Obtener el listado de todos los usuarios." });
-        return [2];
+        switch (_a.label) {
+            case 0: return [4, (0, usersServices_1.getAllUsersService)()];
+            case 1:
+                users = _a.sent();
+                res.status(200).json(users);
+                return [2];
+        }
     });
 }); };
 exports.getUsers = getUsers;
 var getUserById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, user;
     return __generator(this, function (_a) {
-        res.status(201).json({ message: "Obtener el detalle de un usuario específico" });
-        return [2];
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                return [4, (0, usersServices_1.getUserByIdService)(Number(id))];
+            case 1:
+                user = _a.sent();
+                res.status(200).json(user);
+                return [2];
+        }
     });
 }); };
 exports.getUserById = getUserById;
-var registerUser = function (req, res) {
-    res.status(200).json({ message: "Registro de un nuevo usuario." });
-};
+var registerUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, name, email, birthdate, nDni, username, password, newUser;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, name = _a.name, email = _a.email, birthdate = _a.birthdate, nDni = _a.nDni, username = _a.username, password = _a.password;
+                return [4, (0, usersServices_1.createNewUserService)(name, email, birthdate, nDni, username, password)];
+            case 1:
+                newUser = _b.sent();
+                console.log(newUser);
+                res.status(201).json(newUser);
+                return [2];
+        }
+    });
+}); };
 exports.registerUser = registerUser;
-var loginUser = function (req, res) {
-    res.status(200).json({ message: "Login del usuario a la aplicación." });
-};
+var loginUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        res.status(200).json({ message: "In Progress" });
+        return [2];
+    });
+}); };
 exports.loginUser = loginUser;

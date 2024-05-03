@@ -36,63 +36,48 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cancelAppointment = exports.scheduleAppointment = exports.getAppointment = exports.getAllAppointments = void 0;
-var appointmentsServices_1 = require("../services/appointmentsServices");
-var getAllAppointments = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var appointments;
+exports.createNewUserService = exports.getUserByIdService = exports.getAllUsersService = void 0;
+var credentialsServices_1 = require("./credentialsServices");
+var users = [];
+var id = 0;
+var getAllUsersService = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4, appointmentsServices_1.getAllAppointmentsService];
-            case 1:
-                appointments = _a.sent();
-                res.status(200).json(appointments);
-                return [2];
-        }
+        return [2, users];
     });
 }); };
-exports.getAllAppointments = getAllAppointments;
-var getAppointment = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, appointment;
+exports.getAllUsersService = getAllUsersService;
+var getUserByIdService = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+    var _i, users_1, user;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                id = req.params.id;
-                return [4, (0, appointmentsServices_1.getAppointmentByIdService)(Number(id))];
-            case 1:
-                appointment = _a.sent();
-                res.status(200).json(appointment);
-                return [2];
+        for (_i = 0, users_1 = users; _i < users_1.length; _i++) {
+            user = users_1[_i];
+            if (user.id === id)
+                return [2, user];
         }
+        return [2, null];
     });
 }); };
-exports.getAppointment = getAppointment;
-var scheduleAppointment = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, date, time, userId;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _a = req.body, date = _a.date, time = _a.time, userId = _a.userId;
-                return [4, (0, appointmentsServices_1.createNewAppointmentService)(date, time, userId)];
-            case 1:
-                _b.sent();
-                res.status(201).json({ message: "La cita ha sido creada" });
-                return [2];
-        }
-    });
-}); };
-exports.scheduleAppointment = scheduleAppointment;
-var cancelAppointment = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id;
+exports.getUserByIdService = getUserByIdService;
+var createNewUserService = function (name, email, birthdate, nDni, username, password) { return __awaiter(void 0, void 0, void 0, function () {
+    var credentials, newUser;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                id = req.body.id;
-                return [4, (0, appointmentsServices_1.cancelAppointmentService)(id)];
+                id++;
+                return [4, (0, credentialsServices_1.createNewCredentials)(username, password)];
             case 1:
-                _a.sent();
-                res.status(200).json({ message: "Se ha cancelado la cita" });
-                return [2];
+                credentials = _a.sent();
+                newUser = {
+                    id: id,
+                    name: name,
+                    email: email,
+                    birthdate: birthdate,
+                    nDni: nDni,
+                    credentialsId: credentials.id,
+                };
+                users.push(newUser);
+                return [2, newUser];
         }
     });
 }); };
-exports.cancelAppointment = cancelAppointment;
+exports.createNewUserService = createNewUserService;

@@ -36,63 +36,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cancelAppointment = exports.scheduleAppointment = exports.getAppointment = exports.getAllAppointments = void 0;
-var appointmentsServices_1 = require("../services/appointmentsServices");
-var getAllAppointments = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var appointments;
+exports.checkCredentials = exports.createNewCredentials = void 0;
+var id = 0;
+var usersCredentials = [];
+var createNewCredentials = function (username, password) { return __awaiter(void 0, void 0, void 0, function () {
+    var newCredentials;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4, appointmentsServices_1.getAllAppointmentsService];
-            case 1:
-                appointments = _a.sent();
-                res.status(200).json(appointments);
-                return [2];
-        }
+        id++;
+        newCredentials = { id: id, username: username, password: password };
+        usersCredentials.push(newCredentials);
+        return [2, newCredentials];
     });
 }); };
-exports.getAllAppointments = getAllAppointments;
-var getAppointment = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, appointment;
+exports.createNewCredentials = createNewCredentials;
+var checkCredentials = function (username, password) { return __awaiter(void 0, void 0, void 0, function () {
+    var _i, usersCredentials_1, credential;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                id = req.params.id;
-                return [4, (0, appointmentsServices_1.getAppointmentByIdService)(Number(id))];
-            case 1:
-                appointment = _a.sent();
-                res.status(200).json(appointment);
-                return [2];
+        for (_i = 0, usersCredentials_1 = usersCredentials; _i < usersCredentials_1.length; _i++) {
+            credential = usersCredentials_1[_i];
+            if (credential.username === username && credential.password === password) {
+                return [2, credential.id];
+            }
         }
+        return [2, null];
     });
 }); };
-exports.getAppointment = getAppointment;
-var scheduleAppointment = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, date, time, userId;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _a = req.body, date = _a.date, time = _a.time, userId = _a.userId;
-                return [4, (0, appointmentsServices_1.createNewAppointmentService)(date, time, userId)];
-            case 1:
-                _b.sent();
-                res.status(201).json({ message: "La cita ha sido creada" });
-                return [2];
-        }
-    });
-}); };
-exports.scheduleAppointment = scheduleAppointment;
-var cancelAppointment = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                id = req.body.id;
-                return [4, (0, appointmentsServices_1.cancelAppointmentService)(id)];
-            case 1:
-                _a.sent();
-                res.status(200).json({ message: "Se ha cancelado la cita" });
-                return [2];
-        }
-    });
-}); };
-exports.cancelAppointment = cancelAppointment;
+exports.checkCredentials = checkCredentials;

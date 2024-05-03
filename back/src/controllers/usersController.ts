@@ -1,17 +1,29 @@
 import { Request, Response } from "express";
+import {
+  getAllUsersService,
+  getUserByIdService,
+  createNewUserService,
+} from "../services/usersServices";
+import { log } from "console";
 
 export const getUsers = async (req: Request, res: Response) => {
-	res.status(201).json({ message: "Obtener el listado de todos los usuarios." });
+  const users = await getAllUsersService();
+  res.status(200).json(users);
 };
 
 export const getUserById = async (req: Request, res: Response) => {
-	res.status(201).json({ message: "Obtener el detalle de un usuario específico" });
+  const { id } = req.params;
+  const user = await getUserByIdService(Number(id));
+  res.status(200).json(user);
 };
 
-export const registerUser = (req: Request, res: Response) => {
-	res.status(200).json({ message: "Registro de un nuevo usuario." });
+export const registerUser = async (req: Request, res: Response) => {
+  const { name, email, birthdate, nDni, username, password } = req.body;
+  const newUser = await createNewUserService(name, email, birthdate, nDni, username, password);
+  console.log(newUser);
+  res.status(201).json(newUser);
 };
 
-export const loginUser = (req: Request, res: Response) => {
-	res.status(200).json({ message: "Login del usuario a la aplicación." });
+export const loginUser = async (req: Request, res: Response) => {
+  res.status(200).json({ message: "In Progress" });
 };
