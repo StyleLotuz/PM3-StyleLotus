@@ -4,6 +4,7 @@ import morgan from "morgan";
 
 const server = express();
 server.use(morgan("tiny"));
+server.use(express.json());
 
 server.use(router);
 

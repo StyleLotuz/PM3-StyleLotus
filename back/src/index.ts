@@ -1,6 +1,6 @@
 import server from "./server";
-import { PORT } from "./config/envs";
+import { PORT, HOST, PROTO } from "./config/envs";
 
-server.listen(PORT, () => {
-	console.log(`Server listening on port ${PORT}`);
+server.listen(PORT, HOST, () => {
+	console.log(`Server listening on ${PROTO}://${HOST}:${PORT}`);
 });
