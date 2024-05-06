@@ -21,7 +21,7 @@ export class User {
 
     @OneToOne(() => Credential)
     @JoinColumn()
-    credentialsId: Credential
+    credentials: Credential
 
     @OneToMany(()=>Appointment, (appointment) => appointment.userId)
     appoitments: Appointment[]
