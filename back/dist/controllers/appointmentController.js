@@ -42,7 +42,7 @@ var getAllAppointments = function (req, res) { return __awaiter(void 0, void 0, 
     var appointments;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4, appointmentsServices_1.getAllAppointmentsService];
+            case 0: return [4, (0, appointmentsServices_1.getAllAppointmentsService)()];
             case 1:
                 appointments = _a.sent();
                 res.status(200).json(appointments);
@@ -67,12 +67,12 @@ var getAppointment = function (req, res) { return __awaiter(void 0, void 0, void
 }); };
 exports.getAppointment = getAppointment;
 var scheduleAppointment = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, date, time, userId;
+    var _a, date, time, status, userID;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, date = _a.date, time = _a.time, userId = _a.userId;
-                return [4, (0, appointmentsServices_1.createNewAppointmentService)(date, time, userId)];
+                _a = req.body, date = _a.date, time = _a.time, status = _a.status, userID = _a.userID;
+                return [4, (0, appointmentsServices_1.createNewAppointmentService)({ date: date, time: time, status: status, userID: userID })];
             case 1:
                 _b.sent();
                 res.status(201).json({ message: "La cita ha sido creada" });

@@ -33,9 +33,9 @@ var Appointment = (function () {
         __metadata("design:type", String)
     ], Appointment.prototype, "status", void 0);
     __decorate([
-        (0, typeorm_1.ManyToOne)(function () { return User_1.User; }, function (user) { return user.appoitments; }),
+        (0, typeorm_1.ManyToOne)(function () { return User_1.User; }, function (user) { return user.appointments; }),
         __metadata("design:type", User_1.User)
-    ], Appointment.prototype, "userId", void 0);
+    ], Appointment.prototype, "user", void 0);
     Appointment = __decorate([
         (0, typeorm_1.Entity)()
     ], Appointment);

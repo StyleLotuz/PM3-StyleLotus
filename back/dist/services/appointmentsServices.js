@@ -37,51 +37,66 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cancelAppointmentService = exports.createNewAppointmentService = exports.getAppointmentByIdService = exports.getAllAppointmentsService = void 0;
+var data_source_1 = require("../config/data-source");
 var statusEnum_1 = require("../interfaces/statusEnum");
-var appointments = [];
-var id = 0;
 var getAllAppointmentsService = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var appointments;
     return __generator(this, function (_a) {
-        return [2, appointments];
+        switch (_a.label) {
+            case 0: return [4, data_source_1.AppointmentModel.find()];
+            case 1:
+                appointments = _a.sent();
+                console.log(appointments);
+                return [2, appointments];
+        }
     });
 }); };
 exports.getAllAppointmentsService = getAllAppointmentsService;
 var getAppointmentByIdService = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-    var _i, appointments_1, appointment;
+    var appointment;
     return __generator(this, function (_a) {
-        for (_i = 0, appointments_1 = appointments; _i < appointments_1.length; _i++) {
-            appointment = appointments_1[_i];
-            if (appointment.id === id)
-                return [2, appointment];
-        }
-        return [2, null];
+        appointment = data_source_1.AppointmentModel.findOneBy({ id: id });
+        return [2, appointment];
     });
 }); };
 exports.getAppointmentByIdService = getAppointmentByIdService;
-var createNewAppointmentService = function (date, time, userId) { return __awaiter(void 0, void 0, void 0, function () {
-    var status, newAppointment;
+var createNewAppointmentService = function (appointmentData) { return __awaiter(void 0, void 0, void 0, function () {
+    var newAppointment, user;
     return __generator(this, function (_a) {
-        if (!userId) {
-            console.error("Hubo no se ha proporcionado el id del turno");
-            return [2, null];
+        switch (_a.label) {
+            case 0: return [4, data_source_1.AppointmentModel.create(appointmentData)];
+            case 1:
+                newAppointment = _a.sent();
+                return [4, data_source_1.AppointmentModel.save(newAppointment)];
+            case 2:
+                _a.sent();
+                return [4, data_source_1.UserModel.findOneBy({ id: appointmentData.userID })];
+            case 3:
+                user = _a.sent();
+                if (user) {
+                    newAppointment.user = user;
+                    data_source_1.AppointmentModel.save(newAppointment);
+                }
+                return [2, newAppointment];
         }
-        id++;
-        status = statusEnum_1.EStatus.ACTIVE;
-        newAppointment = { id: id, date: date, time: time, userId: userId, status: status };
-        return [2, newAppointment];
     });
 }); };
 exports.createNewAppointmentService = createNewAppointmentService;
 var cancelAppointmentService = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-    var _i, appointments_2, appointment;
+    var appointment;
     return __generator(this, function (_a) {
-        for (_i = 0, appointments_2 = appointments; _i < appointments_2.length; _i++) {
-            appointment = appointments_2[_i];
-            if (appointment.id === id) {
+        switch (_a.label) {
+            case 0: return [4, data_source_1.AppointmentModel.findOneBy({ id: id })];
+            case 1:
+                appointment = _a.sent();
+                if (!appointment) return [3, 3];
                 appointment.status = statusEnum_1.EStatus.CANCELLED;
-            }
+                return [4, data_source_1.AppointmentModel.save(appointment)];
+            case 2:
+                _a.sent();
+                _a.label = 3;
+            case 3: return [2];
         }
-        return [2];
     });
 }); };
 exports.cancelAppointmentService = cancelAppointmentService;

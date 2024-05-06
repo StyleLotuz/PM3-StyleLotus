@@ -16,6 +16,6 @@ export class Appointment {
   @Column()
   status: EStatus;
 
-  @ManyToOne(()=>User, (user) => user.appoitments)
-  userId: User;
+  @ManyToOne(()=>User, (user) => user.appointments)
+  user: User;
 }

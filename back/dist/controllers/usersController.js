@@ -72,7 +72,7 @@ var registerUser = function (req, res) { return __awaiter(void 0, void 0, void 0
         switch (_b.label) {
             case 0:
                 _a = req.body, name = _a.name, email = _a.email, birthdate = _a.birthdate, nDni = _a.nDni, username = _a.username, password = _a.password;
-                return [4, (0, usersServices_1.createNewUserService)(name, email, birthdate, nDni, username, password)];
+                return [4, (0, usersServices_1.createNewUserService)({ name: name, email: email, birthdate: birthdate, nDni: nDni, username: username, password: password })];
             case 1:
                 newUser = _b.sent();
                 console.log(newUser);

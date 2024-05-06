@@ -4,7 +4,6 @@ import {
   getUserByIdService,
   createNewUserService,
 } from "../services/usersServices";
-import { log } from "console";
 
 export const getUsers = async (req: Request, res: Response) => {
   const users = await getAllUsersService();
@@ -19,7 +18,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
 export const registerUser = async (req: Request, res: Response) => {
   const { name, email, birthdate, nDni, username, password } = req.body;
-  const newUser = await createNewUserService(name, email, birthdate, nDni, username, password);
+  const newUser = await createNewUserService({name, email, birthdate, nDni, username, password});
   console.log(newUser);
   res.status(201).json(newUser);
 };

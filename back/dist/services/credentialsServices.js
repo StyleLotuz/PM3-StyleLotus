@@ -37,28 +37,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkCredentials = exports.createNewCredentials = void 0;
-var id = 0;
-var usersCredentials = [];
-var createNewCredentials = function (username, password) { return __awaiter(void 0, void 0, void 0, function () {
-    var newCredentials;
+var data_source_1 = require("../config/data-source");
+var createNewCredentials = function (credentialData) { return __awaiter(void 0, void 0, void 0, function () {
+    var newCredential, result;
     return __generator(this, function (_a) {
-        id++;
-        newCredentials = { id: id, username: username, password: password };
-        usersCredentials.push(newCredentials);
-        return [2, newCredentials];
+        switch (_a.label) {
+            case 0: return [4, data_source_1.CredentialModel.create(credentialData)];
+            case 1:
+                newCredential = _a.sent();
+                return [4, data_source_1.CredentialModel.save(newCredential)];
+            case 2:
+                result = _a.sent();
+                return [2, result];
+        }
     });
 }); };
 exports.createNewCredentials = createNewCredentials;
 var checkCredentials = function (username, password) { return __awaiter(void 0, void 0, void 0, function () {
-    var _i, usersCredentials_1, credential;
+    var checkedUser;
     return __generator(this, function (_a) {
-        for (_i = 0, usersCredentials_1 = usersCredentials; _i < usersCredentials_1.length; _i++) {
-            credential = usersCredentials_1[_i];
-            if (credential.username === username && credential.password === password) {
-                return [2, credential.id];
-            }
-        }
-        return [2, null];
+        checkedUser = data_source_1.CredentialModel.findOneBy({ username: username, password: password });
+        if (checkedUser)
+            return [2, checkedUser];
+        else
+            return [2, null];
+        return [2];
     });
 }); };
 exports.checkCredentials = checkCredentials;

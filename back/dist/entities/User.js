@@ -37,11 +37,11 @@ var User = (function () {
         (0, typeorm_1.OneToOne)(function () { return Credential_1.Credential; }),
         (0, typeorm_1.JoinColumn)(),
         __metadata("design:type", Credential_1.Credential)
-    ], User.prototype, "credentialsId", void 0);
+    ], User.prototype, "credentials", void 0);
     __decorate([
-        (0, typeorm_1.OneToMany)(function () { return Appointment_1.Appointment; }, function (appointment) { return appointment.userId; }),
+        (0, typeorm_1.OneToMany)(function () { return Appointment_1.Appointment; }, function (appointment) { return appointment.user; }),
         __metadata("design:type", Array)
-    ], User.prototype, "appoitments", void 0);
+    ], User.prototype, "appointments", void 0);
     User = __decorate([
         (0, typeorm_1.Entity)({ name: "users" })
     ], User);

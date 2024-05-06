@@ -37,46 +37,57 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createNewUserService = exports.getUserByIdService = exports.getAllUsersService = void 0;
-var credentialsServices_1 = require("./credentialsServices");
-var users = [];
-var id = 0;
+var data_source_1 = require("../config/data-source");
 var getAllUsersService = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var users;
     return __generator(this, function (_a) {
-        return [2, users];
+        switch (_a.label) {
+            case 0: return [4, data_source_1.UserModel.find({ relations: ["appointments"] })];
+            case 1:
+                users = _a.sent();
+                return [2, users];
+        }
     });
 }); };
 exports.getAllUsersService = getAllUsersService;
 var getUserByIdService = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-    var _i, users_1, user;
+    var user;
     return __generator(this, function (_a) {
-        for (_i = 0, users_1 = users; _i < users_1.length; _i++) {
-            user = users_1[_i];
-            if (user.id === id)
+        switch (_a.label) {
+            case 0: return [4, data_source_1.UserModel.findOneBy({ id: id })];
+            case 1:
+                user = _a.sent();
                 return [2, user];
         }
-        return [2, null];
     });
 }); };
 exports.getUserByIdService = getUserByIdService;
-var createNewUserService = function (name, email, birthdate, nDni, username, password) { return __awaiter(void 0, void 0, void 0, function () {
-    var credentials, newUser;
+var createNewUserService = function (userData) { return __awaiter(void 0, void 0, void 0, function () {
+    var credentialsData, newCredential, newUser, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                id++;
-                return [4, (0, credentialsServices_1.createNewCredentials)(username, password)];
-            case 1:
-                credentials = _a.sent();
-                newUser = {
-                    id: id,
-                    name: name,
-                    email: email,
-                    birthdate: birthdate,
-                    nDni: nDni,
-                    credentialsId: credentials.id,
+                credentialsData = {
+                    username: userData.username,
+                    password: userData.password,
                 };
-                users.push(newUser);
-                return [2, newUser];
+                return [4, data_source_1.CredentialModel.create(credentialsData)];
+            case 1:
+                newCredential = _a.sent();
+                return [4, data_source_1.CredentialModel.save(newCredential)];
+            case 2:
+                _a.sent();
+                newUser = data_source_1.UserModel.create({
+                    name: userData.name,
+                    email: userData.email,
+                    birthdate: userData.birthdate,
+                    ndni: userData.nDni,
+                    credentials: newCredential
+                });
+                return [4, data_source_1.UserModel.save(newUser)];
+            case 3:
+                result = _a.sent();
+                return [2, result];
         }
     });
 }); };

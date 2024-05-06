@@ -7,7 +7,7 @@ import {
 } from "../services/appointmentsServices";
 
 export const getAllAppointments = async (req: Request, res: Response) => {
-  const appointments = await getAllAppointmentsService;
+  const appointments = await getAllAppointmentsService();
   res.status(200).json(appointments);
 };
 
@@ -18,8 +18,8 @@ export const getAppointment = async (req: Request, res: Response) => {
 };
 
 export const scheduleAppointment = async (req: Request, res: Response) => {
-  const { date, time, userId } = req.body;
-  await createNewAppointmentService(date, time, userId);
+  const { date, time, status,userID } = req.body;
+  await createNewAppointmentService({date, time, status,userID});
   res.status(201).json({ message: "La cita ha sido creada" });
 };
 
