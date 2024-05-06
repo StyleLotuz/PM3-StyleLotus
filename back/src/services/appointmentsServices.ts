@@ -1,43 +1,33 @@
-import IAppointment from "../interfaces/IAppointment";
+import { AppointmentModel } from "../config/data-source";
+import appointmentDto from "../dto/appointmentDto";
+import { Appointment } from "../entities/Appointment";
 import { EStatus } from "../interfaces/statusEnum";
 
-const appointments: IAppointment[] = [];
-let id = 0;
-
 const getAllAppointmentsService = async () => {
+  const appointments = await AppointmentModel.find();
   return appointments;
 };
 
 const getAppointmentByIdService = async (
   id: number
-): Promise<IAppointment | null> => {
-  for (const appointment of appointments) {
-    if (appointment.id === id) return appointment;
-  }
-  return null;
+): Promise<Appointment | null> => {
+  const appointment = AppointmentModel.findOneBy({ id });
+  return appointment;
 };
 
 const createNewAppointmentService = async (
-  date: Date,
-  time: string,
-  userId: number
-): Promise<IAppointment | null> => {
-  if (!userId) {
-    console.error("Hubo no se ha proporcionado el id del turno");
-    return null;
-  }
-
-  id++;
-  const status = EStatus.ACTIVE;
-  const newAppointment: IAppointment = { id, date, time, userId, status };
-  return newAppointment;
+  appointmentData: appointmentDto
+): Promise<Appointment | null> => {
+  const appointment = await AppointmentModel.create(appointmentData);
+  const result = await AppointmentModel.save(appointment);
+  return result;
 };
 
 const cancelAppointmentService = async (id: number) => {
-  for (const appointment of appointments) {
-    if (appointment.id === id) {
-      appointment.status = EStatus.CANCELLED;
-    }
+  const appointment = await AppointmentModel.findOneBy({id})
+  if(appointment){
+    appointment.status = EStatus.CANCELLED
+    await AppointmentModel.save(appointment)
   }
 };
 

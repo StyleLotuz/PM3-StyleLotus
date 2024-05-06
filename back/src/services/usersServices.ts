@@ -1,44 +1,32 @@
+import { UserModel } from "../config/data-source";
+import CredentialDto from "../dto/credentialsDto";
+import UserDto from "../dto/userDto";
+import { Credential } from "../entities/Credential";
+import { User } from "../entities/User";
 import ICredential from "../interfaces/ICredential";
 import IUser from "../interfaces/IUser";
 import { createNewCredentials } from "./credentialsServices";
 
-const users: IUser[] = [];
-let id = 0;
-
-const getAllUsersService = async (): Promise<IUser[]> => {
+const getAllUsersService = async (): Promise<User[]> => {
+  const users = UserModel.find();
   return users;
 };
 
-const getUserByIdService = async (id: number): Promise<IUser | null> => {
-  for (const user of users) {
-    if (user.id === id) return user;
-  }
-  return null;
+const getUserByIdService = async (id: number): Promise<User | null> => {
+  const user = UserModel.findOneBy({ id });
+  return user;
 };
 
-const createNewUserService = async (
-  name: string,
-  email: string,
-  birthdate: Date,
-  nDni: number,
-  username: string,
-  password: string
-) => {
-  id++;
-  const credentials: ICredential = await createNewCredentials(
-    username,
-    password
-  );
-  const newUser: IUser = {
-    id,
-    name,
-    email,
-    birthdate,
-    nDni,
-    credentialsId: credentials.id,
+const createNewUserService = async (userData: UserDto ) => {
+   // Crear nuevas credenciales y obtener su ID
+   const credentialsData: CredentialDto = {
+    username: userData.username,
+    password: userData.password
   };
-  users.push(newUser)
-  return newUser;
+ 
+  const newUser = UserModel.create({...userData, credentialsId: credentialsData.id})
+  const result = UserModel.save(newUser)
+  return result
 };
 
 export { getAllUsersService, getUserByIdService, createNewUserService };
