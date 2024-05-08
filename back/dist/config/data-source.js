@@ -11,7 +11,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     port: 5432,
     username: "postgres",
     password: "123456789",
-    database: "users",
+    database: "relish_db",
     synchronize: true,
     logging: true,
     entities: [Credential_1.Credential, Appointment_1.Appointment, User_1.User],

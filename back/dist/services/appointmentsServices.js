@@ -46,8 +46,9 @@ var getAllAppointmentsService = function () { return __awaiter(void 0, void 0, v
             case 0: return [4, data_source_1.AppointmentModel.find()];
             case 1:
                 appointments = _a.sent();
-                console.log(appointments);
-                return [2, appointments];
+                if (appointments.length > 0)
+                    return [2, appointments];
+                throw new Error('No hay citas disponibles');
         }
     });
 }); };
@@ -55,29 +56,62 @@ exports.getAllAppointmentsService = getAllAppointmentsService;
 var getAppointmentByIdService = function (id) { return __awaiter(void 0, void 0, void 0, function () {
     var appointment;
     return __generator(this, function (_a) {
-        appointment = data_source_1.AppointmentModel.findOneBy({ id: id });
-        return [2, appointment];
+        switch (_a.label) {
+            case 0: return [4, data_source_1.AppointmentModel.findOneBy({ id: id })];
+            case 1:
+                appointment = _a.sent();
+                if (!appointment)
+                    throw new Error('No se encontro el turno solicitado');
+                return [2, appointment];
+        }
     });
 }); };
 exports.getAppointmentByIdService = getAppointmentByIdService;
 var createNewAppointmentService = function (appointmentData) { return __awaiter(void 0, void 0, void 0, function () {
-    var newAppointment, user;
+    var queryRunner, newAppointment, user, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4, data_source_1.AppointmentModel.create(appointmentData)];
+            case 0:
+                queryRunner = data_source_1.AppDataSource.createQueryRunner();
+                _a.label = 1;
             case 1:
-                newAppointment = _a.sent();
-                return [4, data_source_1.AppointmentModel.save(newAppointment)];
+                _a.trys.push([1, 10, 12, 14]);
+                return [4, queryRunner.connect()];
             case 2:
                 _a.sent();
-                return [4, data_source_1.UserModel.findOneBy({ id: appointmentData.userID })];
+                return [4, queryRunner.startTransaction()];
             case 3:
+                _a.sent();
+                return [4, data_source_1.AppointmentModel.create(appointmentData)];
+            case 4:
+                newAppointment = _a.sent();
+                return [4, queryRunner.manager.save(newAppointment)];
+            case 5:
+                _a.sent();
+                return [4, data_source_1.UserModel.findOneBy({ id: appointmentData.userID })];
+            case 6:
                 user = _a.sent();
-                if (user) {
-                    newAppointment.user = user;
-                    data_source_1.AppointmentModel.save(newAppointment);
-                }
+                if (!user) return [3, 8];
+                newAppointment.user = user;
+                return [4, queryRunner.manager.save(newAppointment)];
+            case 7:
+                _a.sent();
+                _a.label = 8;
+            case 8: return [4, queryRunner.commitTransaction()];
+            case 9:
+                _a.sent();
                 return [2, newAppointment];
+            case 10:
+                error_1 = _a.sent();
+                return [4, queryRunner.rollbackTransaction()];
+            case 11:
+                _a.sent();
+                throw error_1;
+            case 12: return [4, queryRunner.release()];
+            case 13:
+                _a.sent();
+                return [7];
+            case 14: return [2];
         }
     });
 }); };
@@ -94,8 +128,9 @@ var cancelAppointmentService = function (id) { return __awaiter(void 0, void 0, 
                 return [4, data_source_1.AppointmentModel.save(appointment)];
             case 2:
                 _a.sent();
-                _a.label = 3;
-            case 3: return [2];
+                return [3, 4];
+            case 3: throw new Error('No se ha encontrado la cita a cancelar');
+            case 4: return [2];
         }
     });
 }); };

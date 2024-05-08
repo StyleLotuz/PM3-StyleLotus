@@ -36,8 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createNewUserService = exports.getUserByIdService = exports.getAllUsersService = void 0;
+exports.loginUserService = exports.createNewUserService = exports.getUserByIdService = exports.getAllUsersService = void 0;
 var data_source_1 = require("../config/data-source");
+var credentialsServices_1 = require("./credentialsServices");
 var getAllUsersService = function () { return __awaiter(void 0, void 0, void 0, function () {
     var users;
     return __generator(this, function (_a) {
@@ -57,6 +58,8 @@ var getUserByIdService = function (id) { return __awaiter(void 0, void 0, void 0
             case 0: return [4, data_source_1.UserModel.findOneBy({ id: id })];
             case 1:
                 user = _a.sent();
+                if (!user)
+                    throw new Error('Usuario no encontrado');
                 return [2, user];
         }
     });
@@ -92,3 +95,19 @@ var createNewUserService = function (userData) { return __awaiter(void 0, void 0
     });
 }); };
 exports.createNewUserService = createNewUserService;
+var loginUserService = function (credentials) { return __awaiter(void 0, void 0, void 0, function () {
+    var error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4, (0, credentialsServices_1.checkCredentials)(credentials)];
+            case 1: return [2, _a.sent()];
+            case 2:
+                error_1 = _a.sent();
+                throw new Error(error_1);
+            case 3: return [2];
+        }
+    });
+}); };
+exports.loginUserService = loginUserService;

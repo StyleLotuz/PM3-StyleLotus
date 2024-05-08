@@ -12,4 +12,8 @@ server.use((0, cors_1.default)());
 server.use((0, morgan_1.default)("dev"));
 server.use(express_1.default.json());
 server.use(indexRouter_1.default);
+server.use(function (err, req, res, next) {
+    console.error(err);
+    res.status(500).json({ error: 'Este es el error' });
+});
 exports.default = server;

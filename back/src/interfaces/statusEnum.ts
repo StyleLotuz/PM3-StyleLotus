@@ -1,6 +1,6 @@
 enum EStatus {
-  ACTIVE = "Active",
-  CANCELLED = "Cancelled",
+  ACTIVE = "ACTIVE",
+  CANCELLED = "CANCELLED",
 }
 
 export { EStatus };

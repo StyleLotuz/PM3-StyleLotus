@@ -52,40 +52,66 @@ var getUsers = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
 }); };
 exports.getUsers = getUsers;
 var getUserById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, user;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var id, user, _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
+                _b.trys.push([0, 2, , 3]);
                 id = req.params.id;
                 return [4, (0, usersServices_1.getUserByIdService)(Number(id))];
             case 1:
-                user = _a.sent();
+                user = _b.sent();
                 res.status(200).json(user);
-                return [2];
+                return [3, 3];
+            case 2:
+                _a = _b.sent();
+                res.status(404).json({ message: "El usuario no fue encontrado" });
+                return [3, 3];
+            case 3: return [2];
         }
     });
 }); };
 exports.getUserById = getUserById;
 var registerUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name, email, birthdate, nDni, username, password, newUser;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var _a, name, email, birthdate, nDni, username, password, newUser, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0:
+                _c.trys.push([0, 2, , 3]);
                 _a = req.body, name = _a.name, email = _a.email, birthdate = _a.birthdate, nDni = _a.nDni, username = _a.username, password = _a.password;
                 return [4, (0, usersServices_1.createNewUserService)({ name: name, email: email, birthdate: birthdate, nDni: nDni, username: username, password: password })];
             case 1:
-                newUser = _b.sent();
+                newUser = _c.sent();
                 console.log(newUser);
                 res.status(201).json(newUser);
-                return [2];
+                return [3, 3];
+            case 2:
+                _b = _c.sent();
+                res.status(400).json({ message: 'Los datos son incorrectos' });
+                return [3, 3];
+            case 3: return [2];
         }
     });
 }); };
 exports.registerUser = registerUser;
 var loginUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        res.status(200).json({ message: "In Progress" });
-        return [2];
+    var _a, username, password, user, error_1;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 2, , 3]);
+                _a = req.body, username = _a.username, password = _a.password;
+                return [4, (0, usersServices_1.loginUserService)({ username: username, password: password })];
+            case 1:
+                user = _b.sent();
+                res.status(200).json({ login: true, user: user });
+                return [3, 3];
+            case 2:
+                error_1 = _b.sent();
+                res.status(400).json({ message: 'Ha habido un error al encontrar el usuario' });
+                return [3, 3];
+            case 3: return [2];
+        }
     });
 }); };
 exports.loginUser = loginUser;

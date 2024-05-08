@@ -53,15 +53,29 @@ var createNewCredentials = function (credentialData) { return __awaiter(void 0, 
     });
 }); };
 exports.createNewCredentials = createNewCredentials;
-var checkCredentials = function (username, password) { return __awaiter(void 0, void 0, void 0, function () {
-    var checkedUser;
-    return __generator(this, function (_a) {
-        checkedUser = data_source_1.CredentialModel.findOneBy({ username: username, password: password });
-        if (checkedUser)
-            return [2, checkedUser];
-        else
-            return [2, null];
-        return [2];
+var checkCredentials = function (_a) { return __awaiter(void 0, [_a], void 0, function (_b) {
+    var credential, user, error_1;
+    var username = _b.username, password = _b.password;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0:
+                _c.trys.push([0, 3, , 4]);
+                return [4, data_source_1.CredentialModel.findOneBy({ username: username })];
+            case 1:
+                credential = _c.sent();
+                if (!credential)
+                    throw new Error('Credenciales invalidas');
+                if (password !== credential.password)
+                    throw new Error('Credenciales invalidas');
+                return [4, data_source_1.UserModel.findOneBy({ credentials: credential })];
+            case 2:
+                user = _c.sent();
+                return [2, user];
+            case 3:
+                error_1 = _c.sent();
+                throw new Error(error_1);
+            case 4: return [2];
+        }
     });
 }); };
 exports.checkCredentials = checkCredentials;

@@ -38,60 +38,87 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cancelAppointment = exports.scheduleAppointment = exports.getAppointment = exports.getAllAppointments = void 0;
 var appointmentsServices_1 = require("../services/appointmentsServices");
+var statusEnum_1 = require("../interfaces/statusEnum");
 var getAllAppointments = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var appointments;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4, (0, appointmentsServices_1.getAllAppointmentsService)()];
+    var appointments, _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 2, , 3]);
+                return [4, (0, appointmentsServices_1.getAllAppointmentsService)()];
             case 1:
-                appointments = _a.sent();
+                appointments = _b.sent();
                 res.status(200).json(appointments);
-                return [2];
+                return [3, 3];
+            case 2:
+                _a = _b.sent();
+                res.status(404).json({ message: "No se encontraron turnos." });
+                return [3, 3];
+            case 3: return [2];
         }
     });
 }); };
 exports.getAllAppointments = getAllAppointments;
 var getAppointment = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, appointment;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var id, appointment, _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
+                _b.trys.push([0, 2, , 3]);
                 id = req.params.id;
                 return [4, (0, appointmentsServices_1.getAppointmentByIdService)(Number(id))];
             case 1:
-                appointment = _a.sent();
+                appointment = _b.sent();
                 res.status(200).json(appointment);
-                return [2];
+                return [3, 3];
+            case 2:
+                _a = _b.sent();
+                res.status(404).json({ message: 'El turno no fue encontrado' });
+                return [3, 3];
+            case 3: return [2];
         }
     });
 }); };
 exports.getAppointment = getAppointment;
 var scheduleAppointment = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, date, time, status, userID;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var _a, date, time, userID, status, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0:
-                _a = req.body, date = _a.date, time = _a.time, status = _a.status, userID = _a.userID;
+                _c.trys.push([0, 2, , 3]);
+                _a = req.body, date = _a.date, time = _a.time, userID = _a.userID;
+                status = statusEnum_1.EStatus.ACTIVE;
                 return [4, (0, appointmentsServices_1.createNewAppointmentService)({ date: date, time: time, status: status, userID: userID })];
             case 1:
-                _b.sent();
+                _c.sent();
                 res.status(201).json({ message: "La cita ha sido creada" });
-                return [2];
+                return [3, 3];
+            case 2:
+                _b = _c.sent();
+                res.status(400).json({ message: 'Los datos son incorrectos' });
+                return [3, 3];
+            case 3: return [2];
         }
     });
 }); };
 exports.scheduleAppointment = scheduleAppointment;
 var cancelAppointment = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var id, _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                id = req.body.id;
-                return [4, (0, appointmentsServices_1.cancelAppointmentService)(id)];
+                _b.trys.push([0, 2, , 3]);
+                id = req.params.id;
+                return [4, (0, appointmentsServices_1.cancelAppointmentService)(Number(id))];
             case 1:
-                _a.sent();
+                _b.sent();
                 res.status(200).json({ message: "Se ha cancelado la cita" });
-                return [2];
+                return [3, 3];
+            case 2:
+                _a = _b.sent();
+                res.status(404).json({ message: 'No se encontraron turnos' });
+                return [3, 3];
+            case 3: return [2];
         }
     });
 }); };

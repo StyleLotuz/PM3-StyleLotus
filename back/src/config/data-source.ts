@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
     port: 5432,
     username: "postgres",
     password: "123456789",
-    database: "users",
+    database: "relish_db",
     synchronize: true,
     logging: true,
     entities: [Credential, Appointment, User],

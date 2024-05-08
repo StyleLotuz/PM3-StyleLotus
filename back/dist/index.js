@@ -10,6 +10,7 @@ var data_source_1 = require("./config/data-source");
 data_source_1.AppDataSource.initialize()
     .then(function (res) {
     console.log("Se ha realizado una conexión con el servidor");
+    console.log(envs_1.HOST);
     server_1.default.listen(envs_1.PORT, envs_1.HOST, function () {
         console.log("Server listening on ".concat(envs_1.PROTO, "://").concat(envs_1.HOST, ":").concat(envs_1.PORT));
     });
