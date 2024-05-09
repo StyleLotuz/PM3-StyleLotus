@@ -1,11 +1,14 @@
 import { useState } from 'react'
-import Home from './views/Home'
+import {Home, MyAppointments} from './views'
+import NavBar from './components/primary/NavBar'
 
 function App() {
 
   return (
     <>
-      <Home/>
+      <NavBar/>
+      {/* <Home/> */}
+      <MyAppointments/>
     </>
   )
 }

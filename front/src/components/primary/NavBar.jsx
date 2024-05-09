@@ -13,6 +13,7 @@ export default function NavBar() {
                     <a href="" style={styles.li}><li>HOME</li></a>
                     <a href="" style={styles.li}><li>ABOUT US</li></a>
                     <a href="" style={styles.li}><li>CONTACT</li></a>
+                    <a href="" style={styles.li}><li>MY APPOINTMENTS</li></a>
                 </ul>
                 <div style={styles.div}>
                         <JoinUsBtn />
