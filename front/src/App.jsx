@@ -1,14 +1,18 @@
 import { useState } from 'react'
-import {Home, MyAppointments} from './views'
+import { Home, MyAppointments, Register } from './views'
 import NavBar from './components/primary/NavBar'
+import Login from './views/Login/Login'
+
 
 function App() {
 
   return (
     <>
-      <NavBar/>
+      <NavBar />
       {/* <Home/> */}
-      <MyAppointments/>
+      {/* <MyAppointments/> */}
+      {<Register />}
+      {/* <Login/> */}
     </>
   )
 }
