@@ -13,6 +13,18 @@
     justify-content: center;
 }
 
+.error{
+    color: red;
+}
+
+.login{
+    color: white;
+    background-color: rgba(92, 148, 9, 0.171);
+    padding: 5px;
+    border-radius: 5px;
+    transition: all 2s;
+}
+
 .input {
     padding: 10px;
     border-radius: 2px;

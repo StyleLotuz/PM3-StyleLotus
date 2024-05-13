@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
 import styles from './Register.module.css'
 import validate from '../../helpers/validateRegister'
+import axios from 'axios'
 
 export default function Register() {
     const [errors, setErrors] = useState({})
+    const [successMessage, setSuccessMessage] = useState("")
 
     const [userData, setUserData] = useState({
         name: '',
         email: '',
         birthdate: '',
-        ndni: '',
-        username: '', 
+        nDni: '',
+        username: '',
         password: '',
         repassword: ''
     })
@@ -23,15 +25,29 @@ export default function Register() {
         setErrors(validateErrors)
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:3000/users/register', userData)
+            if(response.status===201){
+                setSuccessMessage('There was an error', err)
+                setTimeout(()=>{
+                    setSuccessMessage('')
+                },5000)
+            }
+        } catch(err) {
+            setSuccessMessage('User created successfully!')
+                setTimeout(()=>{
+                    setSuccessMessage('')
+                },5000)
+        }
     }
 
     const isFormValid = Object.keys(errors).length === 0 && Object.keys(userData).every(value => value !== '')
 
     return (
         <div>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSubmit}>
                 <label>Enter your Name: </label>
                 <input className={styles.input} onChange={handleChange} type="text" name="name" value={userData.name} />
                 {errors.name && <p className={styles.error}>{errors.name}</p>}
@@ -50,6 +66,7 @@ export default function Register() {
 
                 <label>Enter your ID document: </label>
                 <input className={styles.input} onChange={handleChange} type="number" name="nDni" value={userData.ndni} />
+                {errors.ndni && <p className={styles.error}>{errors.ndni}</p>}
 
                 <label>Create a password: </label>
                 <input className={styles.input} onChange={handleChange} type="password" name="password" value={userData.password} />
@@ -59,7 +76,8 @@ export default function Register() {
                 <input className={styles.input} onChange={handleChange} type="password" name="repassword" value={userData.repassword} />
                 {errors.repassword && <p className={styles.error}>{errors.repassword}</p>}
 
-                <button type="submit" disabled={!isFormValid} className={styles.sendBtn}>READY TO JOIN</button>
+                <button type="submit" disabled={!isFormValid} >READY TO JOIN</button>
+                {successMessage && <p className={styles.created}>{successMessage}</p>}           
             </form>
         </div>
     )
