@@ -2,7 +2,7 @@
     text-align: center;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin:10px auto;
+    margin:5px 6.4rem;
     padding: 5px 1rem;
     border: 1px solid #000;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);;

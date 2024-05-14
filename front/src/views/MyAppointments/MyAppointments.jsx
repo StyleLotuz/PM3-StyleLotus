@@ -15,7 +15,7 @@ export default function MyAppointments() {
 	}, []);
 
 	return (
-		<div className={styles.container}>
+		<div className={styles.box}>
 			{citas.map((cita) => (
 				<Appointment key={cita.id} date={cita.date} time={cita.time} status={cita.status} />
 			))}

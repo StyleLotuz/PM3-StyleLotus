@@ -3,6 +3,7 @@ import Logo from '../../assets/imgs/RelishLogo.png'
 import JoinUsBtn from '../secundary/JoinUsBtn'
 import SignUpBtn from '../secundary/SignUpBtn'
 import styles from '../../assets/styles/navbar.module.css'
+import { Link, NavLink } from 'react-router-dom'
 
 export default function NavBar() {
     return (
@@ -10,15 +11,15 @@ export default function NavBar() {
             <nav style={styles.nav}>
                 <img src={Logo} style={styles.img} alt="Logo Relish" />
                 <ul style={styles.ul}>
-                    <a href="" style={styles.li}><li>HOME</li></a>
-                    <a href="" style={styles.li}><li>ABOUT US</li></a>
-                    <a href="" style={styles.li}><li>CONTACT</li></a>
-                    <a href="" style={styles.li}><li>MY APPOINTMENTS</li></a>
+                    <NavLink to='/home' style={styles.li}>HOME</NavLink>
+                    <NavLink to='/about' style={styles.li}>ABOUT</NavLink>
+                    <NavLink to='/contact' style={styles.li}>CONTACT</NavLink>
+                    <NavLink to='/myAppointments' style={styles.li}>MY APPOINTMENTS</NavLink>
                 </ul>
                 <div style={styles.div}>
-                        <JoinUsBtn />
-                        <SignUpBtn />
-                    </div>
+                    <Link to="/register"><JoinUsBtn /></Link>
+                    <Link to="/login"><SignUpBtn /></Link>
+                </div>
             </nav>
         </>
     )
