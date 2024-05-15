@@ -4,21 +4,27 @@ import JoinUsBtn from '../secundary/JoinUsBtn'
 import SignUpBtn from '../secundary/SignUpBtn'
 import styles from '../../assets/styles/navbar.module.css'
 import { Link, NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import LogoutBtn from '../secundary/LogoutBtn'
 
 export default function NavBar() {
+
+    const userId = useSelector(state => state.user.userId)
+
     return (
         <>
-            <nav style={styles.nav}>
-                <img src={Logo} style={styles.img} alt="Logo Relish" />
-                <ul style={styles.ul}>
-                    <NavLink to='/home' style={styles.li}>HOME</NavLink>
-                    <NavLink to='/about' style={styles.li}>ABOUT</NavLink>
-                    <NavLink to='/contact' style={styles.li}>CONTACT</NavLink>
-                    <NavLink to='/myAppointments' style={styles.li}>MY APPOINTMENTS</NavLink>
+            <nav className={styles.nav}>
+                <img src={Logo} className={styles.img} alt="Logo Relish" />
+                <ul className={styles.ul}>
+                    <NavLink to='/home' className={styles.li}>HOME</NavLink>
+                    <NavLink to='/about' className={styles.li}>ABOUT</NavLink>
+                    <NavLink to='/menu' className={styles.li}>MENU</NavLink>
+                    {userId && <NavLink to='/myAppointments' className={styles.li}>MY APPOINTMENTS</NavLink>}
                 </ul>
-                <div style={styles.div}>
-                    <Link to="/register"><JoinUsBtn /></Link>
-                    <Link to="/login"><SignUpBtn /></Link>
+                <div className={styles.div}>
+                    {!userId && <Link to="/register"><JoinUsBtn /></Link>}
+                    {!userId && <Link to="/login"><SignUpBtn /></Link>}
+                    {userId && <LogoutBtn/>}
                 </div>
             </nav>
         </>

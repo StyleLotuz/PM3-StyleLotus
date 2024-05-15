@@ -1,4 +1,4 @@
-import { error } from "console";
+import { error, log } from "console";
 import { AppDataSource, AppointmentModel, UserModel } from "../config/data-source";
 import appointmentDto from "../dto/appointmentDto";
 import { Appointment } from "../entities/Appointment";
@@ -21,7 +21,7 @@ const getAppointmentByIdService = async (
 const createNewAppointmentService = async (
   appointmentData: appointmentDto
 ): Promise<Appointment> => {
-  const queryRunner = AppDataSource.createQueryRunner()
+  const queryRunner = AppDataSource.createQueryRunner()  
   try {
     await queryRunner.connect()
 

@@ -1,9 +1,20 @@
-.container{
+.container {
     text-align: center;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin:5px 6.4rem;
+    grid-template-columns: repeat(5, 1fr);
+    margin: 5px 6.4rem;
     padding: 5px 1rem;
+    width: 82.4%;
     border: 1px solid #000;
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+    ;
+}
+
+.disabled {
+    background-color: red;
+    cursor: not-allowed;     
+}
+
+.disabled:hover {
+    background-color: red;
 }

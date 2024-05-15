@@ -12,9 +12,9 @@ export default function Footer() {
                 <img src={Logo} className={styles.logo} alt="Logo Relish" />
             </div>
             <div className={styles.buttons}>
-                <a href="https://www.github.com/" target="_blank" rel="noopener noreferrer"><img src={GitHub} alt="GitHub" /></a>
-                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><img src={Instagram} alt="Instagram" /></a>
-                <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer"><img src={Linkedin} alt="Linkedin" /></a>
+                <a href="https://www.github.com/" target="_blank" rel="noopener noreferrer"><img src={GitHub} alt="GitHub" className={styles.logo}/></a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><img src={Instagram} alt="Instagram" className={styles.logo}/></a>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer"><img src={Linkedin} alt="Linkedin"className={styles.logo} /></a>
             </div>
         </footer>
     )

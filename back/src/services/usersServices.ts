@@ -12,7 +12,10 @@ const getAllUsersService = async (): Promise<User[]> => {
 };
 
 const getUserByIdService = async (id: number): Promise<User> => {
-  const user = await UserModel.findOneBy({ id });
+  const user = await UserModel.findOne({ 
+    where: {id: id},
+    relations: ["appointments"]
+   });
   if (!user) throw new Error('Usuario no encontrado')
   return user;
 };

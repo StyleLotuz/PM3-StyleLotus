@@ -4,7 +4,8 @@ interface appointmentDto{
     date: Date,
     time: string,
     status: EStatus.ACTIVE,
-    userID: number
+    userID: number, 
+    description: string
 }
 
 export default appointmentDto

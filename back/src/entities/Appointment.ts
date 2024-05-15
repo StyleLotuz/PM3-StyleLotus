@@ -14,6 +14,9 @@ export class Appointment {
   time: string;
 
   @Column()
+  description: string;
+
+  @Column()
   status: EStatus;
 
   @ManyToOne(()=>User, (user) => user.appointments)

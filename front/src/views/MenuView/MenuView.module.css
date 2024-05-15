@@ -1,0 +1,43 @@
+.menu {
+    text-align: center;
+    padding: 20px;
+}
+
+.menuItems {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.menuItem {
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    transition: transform 0.3s ease;
+}
+
+.menuItem:hover {
+    transform: scale(1.05);
+}
+
+.menuItem img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.menuItem h2 {
+    margin-top: 0;
+}
+
+.menuItem p {
+    color: #666;
+}
+
+.menuItem span {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}

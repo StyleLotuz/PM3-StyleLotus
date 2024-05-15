@@ -8,11 +8,11 @@ import {
 import { EStatus } from "../interfaces/statusEnum";
 
 export const getAllAppointments = async (req: Request, res: Response) => {
-  try{
-  const appointments = await getAllAppointmentsService();
-  res.status(200).json(appointments);
-  }catch{
-    res.status(404).json({message: "No se encontraron turnos."})
+  try {
+    const appointments = await getAllAppointmentsService();
+    res.status(200).json(appointments);
+  } catch {
+    res.status(404).json({ message: "No se encontraron turnos." })
   }
 };
 
@@ -28,11 +28,12 @@ export const getAppointment = async (req: Request, res: Response) => {
 
 export const scheduleAppointment = async (req: Request, res: Response) => {
   try {
-    const { date, time, userID } = req.body;
+    const { date, time, userID, description } = req.body;
     const status = EStatus.ACTIVE
-    await createNewAppointmentService({ date, time, status, userID });
-    res.status(201).json({ message: "La cita ha sido creada" });
+    const newAppointment = await createNewAppointmentService({ date, time, status, description, userID });
+    res.status(201).json(newAppointment);
   } catch {
+    console.log('Hola');
     res.status(400).json({ message: 'Los datos son incorrectos' })
   }
 };

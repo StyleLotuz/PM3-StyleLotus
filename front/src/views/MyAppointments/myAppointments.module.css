@@ -1,0 +1,14 @@
+.noAppointmentText {
+    margin: auto;
+    font-size: 2.3rem;
+}
+
+.box{
+    display: flex;
+    flex-direction: column;
+}
+
+.addBtn{
+    background-color: red;
+    margin: auto;
+}
