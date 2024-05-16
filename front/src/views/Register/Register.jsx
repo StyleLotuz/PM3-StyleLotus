@@ -36,7 +36,7 @@ export default function Register() {
                 },5000)
             }
         } catch(err) {
-            setSuccessMessage('User created successfully!')
+            setSuccessMessage('There was an error, try change it the username!')
                 setTimeout(()=>{
                     setSuccessMessage('')
                 },5000)
