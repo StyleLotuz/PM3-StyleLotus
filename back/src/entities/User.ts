@@ -10,8 +10,8 @@ export class User {
     @Column({length: 100})
     name: string
     
-    email: string
     @Column()
+    email: string
     
     @Column()
     birthdate: Date
