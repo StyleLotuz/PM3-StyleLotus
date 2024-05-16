@@ -39,7 +39,7 @@ export default function Login() {
             }, 5000)
             navigate("/Home")
         } catch (error) {
-            setSubmittedText('Login not submitted')
+            setSubmittedText('username or password does not exist')
             setTimeout(() => {
                 setSubmittedText('')
             }, 5000)
